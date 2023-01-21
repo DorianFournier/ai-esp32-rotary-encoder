@@ -26,6 +26,13 @@ typedef enum
 	BUT_DISABLED = 99,
 } ButtonState;
 
+typedef enum 
+{
+	LEFT = 0, 
+	MIDDLE = 1, 
+	RIGHT = 2,
+} Move;
+
 class AiEsp32RotaryEncoder
 {
 
@@ -89,6 +96,7 @@ public:
 	long readEncoder();
 	void setEncoderValue(long newValue);
 	long encoderChanged();
+	Move encoderChangedState();
 	ButtonState currentButtonState();
 	ButtonState readButtonState();
 	unsigned long getAcceleration() { return this->rotaryAccelerationCoef; }
