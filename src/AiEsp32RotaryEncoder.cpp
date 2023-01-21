@@ -179,6 +179,35 @@ long AiEsp32RotaryEncoder::encoderChanged()
 	return encoder0Diff;
 }
 
+Move AiEsp32RotaryEncoder::encoderChangedState()
+{
+	long _encoder0Pos = readEncoder();
+	long encoder0Diff = 0;
+	if(_encoder0Pos == 1000 && this->lastReadEncoder0Pos == 0){
+		encoder0Diff = -1;
+	} else if (_encoder0Pos == 0 && this->lastReadEncoder0Pos == 1000) {
+		encoder0Diff = 1;
+	} else {
+		encoder0Diff = _encoder0Pos - this->lastReadEncoder0Pos;	
+	}
+	
+	this->lastReadEncoder0Pos = _encoder0Pos;
+
+	if(encoder0Diff > 0 && _cursorState == MIDDLE){
+		_cursorState = RIGHT;
+	}
+	else if(encoder0Diff > 0 && _cursorState == LEFT){
+		_cursorState = MIDDLE;
+	}
+	else if(encoder0Diff < 0 && _cursorState == MIDDLE){
+		_cursorState = LEFT;
+	}
+	else if(encoder0Diff < 0 && _cursorState == RIGHT){
+		_cursorState = MIDDLE;
+	}
+	return _cursorState;
+}
+
 void AiEsp32RotaryEncoder::setup(void (*ISR_callback)(void), void (*ISR_button)(void))
 {
 	attachInterrupt(digitalPinToInterrupt(this->encoderAPin), ISR_callback, CHANGE);
