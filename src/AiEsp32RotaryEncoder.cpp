@@ -274,7 +274,8 @@ void AiEsp32RotaryEncoder::disable()
 bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilliseconds)
 {
 	static bool wasTimeouted = false;
-	int button = 1 - digitalRead(encoderButtonPin);
+	//int button = 1 - digitalRead(encoderButtonPin);
+	int button = digitalRead(encoderButtonPin);
 	if (!button)
 	{
 		if (wasTimeouted)
@@ -285,7 +286,8 @@ bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilli
 		return false;
 	}
 	delay(30); //debounce
-	button = 1 - digitalRead(encoderButtonPin);
+	//button = 1 - digitalRead(encoderButtonPin);
+	button = digitalRead(encoderButtonPin);
 	if (!button)
 	{
 		return false;
@@ -294,7 +296,8 @@ bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilli
 	//wait release of button but only maximumWaitMilliseconds
 	wasTimeouted = false;
 	unsigned long waitUntil = millis() + maximumWaitMilliseconds;
-	while (1 - digitalRead(encoderButtonPin))
+	//while (1 - digitalRead(encoderButtonPin))
+	while (digitalRead(encoderButtonPin))
 	{
 		if (millis() > waitUntil)
 		{
