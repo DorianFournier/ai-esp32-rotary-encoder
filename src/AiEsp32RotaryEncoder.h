@@ -60,7 +60,7 @@ private:
 	long _minEncoderValue = -1 << 15;
 	long _maxEncoderValue = 1 << 15;
 	
-	Move _cursorState;
+	Move _cursorState = MIDDLE;
 
 	uint8_t old_AB;
 	long lastReadEncoder0Pos;
