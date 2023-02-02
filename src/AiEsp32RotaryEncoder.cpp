@@ -276,7 +276,8 @@ bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilli
 	static bool wasTimeouted = false;
 	//int button = 1 - digitalRead(encoderButtonPin);
 	int button = digitalRead(encoderButtonPin);
-	if (!button)
+	//if (!button)
+	if (button)
 	{
 		if (wasTimeouted)
 		{
@@ -288,7 +289,8 @@ bool AiEsp32RotaryEncoder::isEncoderButtonClicked(unsigned long maximumWaitMilli
 	delay(30); //debounce
 	//button = 1 - digitalRead(encoderButtonPin);
 	button = digitalRead(encoderButtonPin);
-	if (!button)
+	//if (!button)
+	if (button)
 	{
 		return false;
 	}
